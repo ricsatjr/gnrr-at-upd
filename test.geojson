@@ -1,0 +1,236 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2024-09-08T22:53:58Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/27261906",
+        "addr:city": "Quezon City",
+        "addr:postcode": "1101",
+        "addr:street": "University Avenue",
+        "alt_name": "Administration",
+        "building": "yes",
+        "height": "20",
+        "name": "Quezon Hall",
+        "source": "Yahoo;Bing"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.0651596,
+              14.6554901
+            ],
+            [
+              121.0651245,
+              14.6554898
+            ],
+            [
+              121.0651246,
+              14.6554721
+            ],
+            [
+              121.0650127,
+              14.6554713
+            ],
+            [
+              121.065016,
+              14.6550786
+            ],
+            [
+              121.0650035,
+              14.6550785
+            ],
+            [
+              121.0650066,
+              14.6547074
+            ],
+            [
+              121.0650347,
+              14.6547076
+            ],
+            [
+              121.0650377,
+              14.654331
+            ],
+            [
+              121.065173,
+              14.654332
+            ],
+            [
+              121.06517,
+              14.6547033
+            ],
+            [
+              121.065207,
+              14.6547036
+            ],
+            [
+              121.065204,
+              14.655073
+            ],
+            [
+              121.0651631,
+              14.6550727
+            ],
+            [
+              121.0651596,
+              14.6554901
+            ]
+          ]
+        ]
+      },
+      "id": "way/27261906"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/29252618",
+        "addr:city": "Quezon City",
+        "addr:postcode": "1101",
+        "addr:street": "Roxas Avenue",
+        "amenity": "college",
+        "building": "yes",
+        "building:levels": "5",
+        "check_date": "2023-04-29",
+        "height": "20",
+        "name": "College of Arts and Letters"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.0671587,
+              14.652646
+            ],
+            [
+              121.0672841,
+              14.65242
+            ],
+            [
+              121.0677032,
+              14.6526376
+            ],
+            [
+              121.0675779,
+              14.6528637
+            ],
+            [
+              121.0673982,
+              14.6527704
+            ],
+            [
+              121.0673838,
+              14.6527764
+            ],
+            [
+              121.0673676,
+              14.6527765
+            ],
+            [
+              121.0673507,
+              14.6527682
+            ],
+            [
+              121.0673395,
+              14.6527561
+            ],
+            [
+              121.0673353,
+              14.6527378
+            ],
+            [
+              121.0671587,
+              14.652646
+            ]
+          ]
+        ]
+      },
+      "id": "way/29252618"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/69033139",
+        "alt_name": "Abelardo Hall",
+        "building": "yes",
+        "height": "8",
+        "name": "UP College of Music",
+        "source": "Yahoo",
+        "website": "https://upd.edu.ph/~music/"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.0652084,
+              14.6564399
+            ],
+            [
+              121.0654803,
+              14.656438
+            ],
+            [
+              121.065748,
+              14.6564361
+            ],
+            [
+              121.065751,
+              14.6568263
+            ],
+            [
+              121.0652114,
+              14.6568301
+            ],
+            [
+              121.0652095,
+              14.6565831
+            ],
+            [
+              121.0652084,
+              14.6564399
+            ]
+          ]
+        ]
+      },
+      "id": "way/69033139"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5344986533",
+        "access": "permissive",
+        "entrance": "main"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.0673982,
+          14.6527704
+        ]
+      },
+      "id": "node/5344986533"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5344986538",
+        "entrance": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.0654803,
+          14.656438
+        ]
+      },
+      "id": "node/5344986538"
+    }
+  ]
+}

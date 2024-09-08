@@ -16,4 +16,9 @@ To create a query:
 9. Click export --> Data --> Geojson --> Copy. This will copy the geojson file to your clipboard.
 10. Open the existing geojson file, clear it, and then paste the updated geojson file from your clipboard.
 11. Commit the changes to your geojson file.
+
+Viewing the geojson file in geojson.io:
+1. open a web browser
+2. type "https://geojson.io/#id=github:ricsatjr/gnrr-at-upd/blob/main/<geojson file>&map" on the address bar.
+3. replace <geojson file> with the actual name of the geojson file. 
    

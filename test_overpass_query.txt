@@ -1,0 +1,3 @@
+way["name"~"Quezon Hall|UP College of Music|College of Arts and Letters"]["building"="yes"](14.64566603208577,121.05144023895264,14.663809930484568,121.0786485671997);
+(._;>;);
+out;

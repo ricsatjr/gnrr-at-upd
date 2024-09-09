@@ -19,6 +19,6 @@ To create a query:
 
 Viewing the geojson file in geojson.io:
 1. open a web browser
-2. type "https://geojson.io/#id=github:ricsatjr/gnrr-at-upd/blob/main/<geojson file>&map" on the address bar.
-3. replace <geojson file> with the actual name of the geojson file. 
+2. type "https://geojson.io/#id=github:ricsatjr/gnrr-at-upd/blob/main/test.geojson&map" on the address bar.
+3. replace "test.geojson" with the actual name of the geojson file. 
    

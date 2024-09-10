@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
         attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    fetch('map.geojson')
+    fetch('test.geojson')
     .then(response => response.json())
     .then(geojsonData => {
         var geojsonLayer = L.geoJSON(geojsonData, {

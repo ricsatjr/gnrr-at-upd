@@ -24,8 +24,23 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     
+    - name: List directory contents before run
+      run: ls -la
+    
     - name: Run Python script
       run: python overpass-extract.py
+    
+    - name: List directory contents after run
+      run: ls -la
+    
+    - name: Check if output file exists
+      run: |
+        if [ -f buildings.geojson ]; then
+          echo "buildings.geojson exists."
+          head -n 20 buildings.geojson
+        else
+          echo "buildings.geojson does not exist."
+        fi
     
     - name: Upload GeoJSON output
       uses: actions/upload-artifact@v2

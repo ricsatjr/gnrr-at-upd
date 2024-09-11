@@ -3,21 +3,33 @@ import requests
 import json
 import sys
 import traceback
-
-# Redirect stdout and stderr to a file
-sys.stdout = sys.stderr = open('script_output.log', 'w')
+import os
 
 def create_overpass_query(csv_file_path):
-    feat_types=[]
+    feat_types = []
     ids = []
     
-    # Read the CSV file and extract the way IDs
+    print(f"Opening CSV file: {csv_file_path}")
     with open(csv_file_path, 'r') as csvfile:
+        print(f"First few lines of the CSV file:")
+        for i, line in enumerate(csvfile):
+            print(line.strip())
+            if i >= 5:  # Print first 5 lines
+                break
+        csvfile.seek(0)  # Reset file pointer to the beginning
+        
         csv_reader = csv.DictReader(csvfile)
+        print(f"CSV headers: {csv_reader.fieldnames}")
+        
         for row in csv_reader:
             osmid = row['osmid']
-            ids.append(osmid.split('/')[1])  # Extract the numeric ID
-            feat_types.append(osmid.split('/')[0]) # Extract the feature type ID
+            print(f"Processing row: {row}")
+            id_parts = osmid.split('/')
+            if len(id_parts) != 2:
+                print(f"Warning: Unexpected OSM ID format: {osmid}")
+                continue
+            ids.append(id_parts[1])  # Extract the numeric ID
+            feat_types.append(id_parts[0])  # Extract the feature type ID
     
     # Create the Overpass query
     query = "[out:json];\n(\n"
@@ -25,6 +37,7 @@ def create_overpass_query(csv_file_path):
         query += f"  {feat_types[f]}(id:{ids[f]});\n"
     query += ");\nout geom;"
     
+    print(f"Generated query:\n{query}")
     return query
 
 def osm_to_geojson(osm_data):
@@ -62,7 +75,6 @@ def osm_to_geojson(osm_data):
                 }
         elif element['type'] == 'relation':
             # For simplicity, we'll treat relations as MultiPolygons
-            # This is a simplified approach and might need refinement for complex relations
             feature['geometry'] = {
                 "type": "MultiPolygon",
                 "coordinates": []
@@ -80,61 +92,46 @@ def osm_to_geojson(osm_data):
 def query_overpass_and_save_geojson(csv_file_path, output_file_path):
     print(f"Starting script with CSV file: {csv_file_path}")
     
-    # Create the Overpass query
-    query = create_overpass_query(csv_file_path)
-    print(f"Generated query: {query}")
-    
-    # Set up the request
-    overpass_url = "https://overpass-api.de/api/interpreter"
-    print(f"Sending request to {overpass_url}")
     try:
+        # Create the Overpass query
+        query = create_overpass_query(csv_file_path)
+        
+        # Set up the request
+        overpass_url = "https://overpass-api.de/api/interpreter"
+        print(f"Sending request to {overpass_url}")
         response = requests.get(overpass_url, params={'data': query})
         response.raise_for_status()  # This will raise an exception for HTTP errors
-    except requests.exceptions.RequestException as e:
-        print(f"Error making request: {e}")
-        return
-
-    print(f"Request status code: {response.status_code}")
-    
-    # Check if the request was successful
-    if response.status_code == 200:
-        print("Request successful")
-        try:
-            # Parse the JSON response
-            osm_data = response.json()
-        except json.JSONDecodeError as e:
-            print(f"Error decoding JSON: {e}")
-            print(f"Response content: {response.text[:1000]}")  # Print first 1000 characters of response
-            return
+        
+        print(f"Request status code: {response.status_code}")
+        
+        # Parse the JSON response
+        osm_data = response.json()
         
         # Convert OSM JSON to GeoJSON
         geojson_data = osm_to_geojson(osm_data)
         
         # Save the data as GeoJSON
-        try:
-            with open(output_file_path, 'w') as f:
-                json.dump(geojson_data, f, indent=2)
-            print(f"GeoJSON data saved to {output_file_path}")
-        except IOError as e:
-            print(f"Error writing to file: {e}")
-    else:
-        print(f"Error: Unable to fetch data. Status code: {response.status_code}")
-        print(f"Response content: {response.text[:1000]}")  # Print first 1000 characters of response
+        with open(output_file_path, 'w') as f:
+            json.dump(geojson_data, f, indent=2)
+        
+        print(f"GeoJSON data saved to {output_file_path}")
+        
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+        print("Traceback:")
+        traceback.print_exc()
+        raise  # Re-raise the exception to ensure the GitHub Action fails if there's an error
 
-
-try:
-    # Usage
+# Main execution
+if __name__ == "__main__":
     csv_file_path = 'buildings.csv'
     output_file_path = 'buildings.geojson'
-    print("Script started")
+    
     query_overpass_and_save_geojson(csv_file_path, output_file_path)
-    print("Script finished")
-
-except Exception as e:
-    print(f"An error occurred: {e}")
-    print("Traceback:")
-    traceback.print_exc()
-
-finally:
-    sys.stdout.close()
-    sys.stderr.close()
+    
+    print("Current working directory:", os.getcwd())
+    print("Files in current directory:", os.listdir())
+    if os.path.exists('buildings.geojson'):
+        print("buildings.geojson file size:", os.path.getsize('buildings.geojson'))
+    else:
+        print("buildings.geojson not found in the current directory")

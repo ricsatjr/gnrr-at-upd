@@ -75,13 +75,16 @@ def osm_to_geojson(osm_data):
 def query_overpass_and_save_geojson(csv_file_path, output_file_path):
     # Create the Overpass query
     query = create_overpass_query(csv_file_path)
+    print(f"Generated query: {query}")
     
     # Set up the request
     overpass_url = "https://overpass-api.de/api/interpreter"
+    print(f"Sending request to {overpass_url}")
     response = requests.get(overpass_url, params={'data': query})
     
     # Check if the request was successful
     if response.status_code == 200:
+        print("Request successful")
         # Parse the JSON response
         osm_data = response.json()
         

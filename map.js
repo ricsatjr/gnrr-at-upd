@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 };
             },
             onEachFeature: function(feature, layer) {
-                if (feature.properties && feature.properties.name) {
-                    layer.bindPopup(feature.properties.name);
+                if (feature.properties && feature.properties.tags.name) {
+                    layer.bindPopup(feature.properties.tags.name);
                 }
             }
         }).addTo(map);

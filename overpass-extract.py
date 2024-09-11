@@ -73,6 +73,8 @@ def osm_to_geojson(osm_data):
     return geojson
 
 def query_overpass_and_save_geojson(csv_file_path, output_file_path):
+    print(f"Starting script with CSV file: {csv_file_path}")
+    
     # Create the Overpass query
     query = create_overpass_query(csv_file_path)
     print(f"Generated query: {query}")
@@ -80,26 +82,43 @@ def query_overpass_and_save_geojson(csv_file_path, output_file_path):
     # Set up the request
     overpass_url = "https://overpass-api.de/api/interpreter"
     print(f"Sending request to {overpass_url}")
-    response = requests.get(overpass_url, params={'data': query})
+    try:
+        response = requests.get(overpass_url, params={'data': query})
+        response.raise_for_status()  # This will raise an exception for HTTP errors
+    except requests.exceptions.RequestException as e:
+        print(f"Error making request: {e}")
+        return
+
+    print(f"Request status code: {response.status_code}")
     
     # Check if the request was successful
     if response.status_code == 200:
         print("Request successful")
-        # Parse the JSON response
-        osm_data = response.json()
+        try:
+            # Parse the JSON response
+            osm_data = response.json()
+        except json.JSONDecodeError as e:
+            print(f"Error decoding JSON: {e}")
+            print(f"Response content: {response.text[:1000]}")  # Print first 1000 characters of response
+            return
         
         # Convert OSM JSON to GeoJSON
         geojson_data = osm_to_geojson(osm_data)
         
         # Save the data as GeoJSON
-        with open(output_file_path, 'w') as f:
-            json.dump(geojson_data, f, indent=2)
-        
-        print(f"GeoJSON data saved to {output_file_path}")
+        try:
+            with open(output_file_path, 'w') as f:
+                json.dump(geojson_data, f, indent=2)
+            print(f"GeoJSON data saved to {output_file_path}")
+        except IOError as e:
+            print(f"Error writing to file: {e}")
     else:
         print(f"Error: Unable to fetch data. Status code: {response.status_code}")
+        print(f"Response content: {response.text[:1000]}")  # Print first 1000 characters of response
 
 # Usage
 csv_file_path = 'buildings.csv'
 output_file_path = 'buildings.geojson'
+print("Script started")
 query_overpass_and_save_geojson(csv_file_path, output_file_path)
+print("Script finished")

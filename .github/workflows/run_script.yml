@@ -13,6 +13,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
     
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -24,34 +26,19 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     
-    - name: List directory contents before run
-      run: ls -la
-    
-    - name: Display Python script content
-      run: cat overpass-extract.py
-    
     - name: Run Python script
       run: python overpass-extract.py
-      continue-on-error: true
     
-    - name: List directory contents after run
-      run: ls -la
-    
-    - name: Check if output file exists
+    - name: Commit and push if it's changed
       run: |
-        if [ -f buildings.geojson ]; then
-          echo "buildings.geojson exists."
-          head -n 20 buildings.geojson
-        else
-          echo "buildings.geojson does not exist."
-        fi
-    
-    - name: Upload GeoJSON output
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add buildings.geojson
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Update buildings.geojson" && git push)
+
+    - name: Upload GeoJSON output as artifact
       uses: actions/upload-artifact@v3
-      if: always()
       with:
         name: output-geojson
-        path: |
-          buildings.geojson
-          *.log
+        path: buildings.geojson
         if-no-files-found: warn

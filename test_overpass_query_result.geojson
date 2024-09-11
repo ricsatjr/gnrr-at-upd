@@ -1,0 +1,94 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2024-09-11T13:02:30Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/69033139",
+        "alt_name": "Abelardo Hall",
+        "building": "yes",
+        "height": "8",
+        "name": "UP College of Music",
+        "source": "Yahoo",
+        "website": "https://upd.edu.ph/~music/"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.0652084,
+              14.6564399
+            ],
+            [
+              121.0654803,
+              14.656438
+            ],
+            [
+              121.065748,
+              14.6564361
+            ],
+            [
+              121.065751,
+              14.6568263
+            ],
+            [
+              121.0652114,
+              14.6568301
+            ],
+            [
+              121.0652095,
+              14.6565831
+            ],
+            [
+              121.0652084,
+              14.6564399
+            ]
+          ]
+        ]
+      },
+      "id": "way/69033139"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/258074039",
+        "building": "yes",
+        "building:levels": "2",
+        "height": "8",
+        "name": "Abelardo Hall Auditorium"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.0651521,
+              14.6568367
+            ],
+            [
+              121.0649006,
+              14.6568427
+            ],
+            [
+              121.0648913,
+              14.6564793
+            ],
+            [
+              121.0651428,
+              14.6564733
+            ],
+            [
+              121.0651521,
+              14.6568367
+            ]
+          ]
+        ]
+      },
+      "id": "way/258074039"
+    }
+  ]
+}

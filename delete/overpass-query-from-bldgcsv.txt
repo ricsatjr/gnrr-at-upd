@@ -1,6 +1,0 @@
-[out:json];
-(
-  way(id:69033139);
-  way(id:258074039);
-);
-out geom;

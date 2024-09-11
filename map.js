@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
         attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    fetch('buildings.geojson')
+    fetch('test_overpass_query_result.geojson')
     .then(response => response.json())
     .then(geojsonData => {
         var geojsonLayer = L.geoJSON(geojsonData, {
@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 };
             },
             onEachFeature: function(feature, layer) {
-                if (feature.properties && feature.properties.tags.name) {
-                    layer.bindPopup(feature.properties.tags.name);
+                if (feature.properties && feature.properties.name) {
+                    layer.bindPopup(feature.properties.name);
                 }
             }
         }).addTo(map);

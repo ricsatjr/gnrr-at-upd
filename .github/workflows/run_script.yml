@@ -12,10 +12,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: '3.x'
     
@@ -27,8 +27,12 @@ jobs:
     - name: List directory contents before run
       run: ls -la
     
+    - name: Display Python script content
+      run: cat overpass-extract.py
+    
     - name: Run Python script
       run: python overpass-extract.py
+      continue-on-error: true
     
     - name: List directory contents after run
       run: ls -la
@@ -43,7 +47,11 @@ jobs:
         fi
     
     - name: Upload GeoJSON output
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
+      if: always()
       with:
         name: output-geojson
-        path: buildings.geojson
+        path: |
+          buildings.geojson
+          *.log
+        if-no-files-found: warn

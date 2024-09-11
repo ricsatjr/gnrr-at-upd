@@ -2,6 +2,10 @@ import csv
 import requests
 import json
 import sys
+import traceback
+
+# Redirect stdout and stderr to a file
+sys.stdout = sys.stderr = open('script_output.log', 'w')
 
 def create_overpass_query(csv_file_path):
     feat_types=[]
@@ -117,9 +121,20 @@ def query_overpass_and_save_geojson(csv_file_path, output_file_path):
         print(f"Error: Unable to fetch data. Status code: {response.status_code}")
         print(f"Response content: {response.text[:1000]}")  # Print first 1000 characters of response
 
-# Usage
-csv_file_path = 'buildings.csv'
-output_file_path = 'buildings.geojson'
-print("Script started")
-query_overpass_and_save_geojson(csv_file_path, output_file_path)
-print("Script finished")
+
+try:
+    # Usage
+    csv_file_path = 'buildings.csv'
+    output_file_path = 'buildings.geojson'
+    print("Script started")
+    query_overpass_and_save_geojson(csv_file_path, output_file_path)
+    print("Script finished")
+
+except Exception as e:
+    print(f"An error occurred: {e}")
+    print("Traceback:")
+    traceback.print_exc()
+
+finally:
+    sys.stdout.close()
+    sys.stderr.close()
